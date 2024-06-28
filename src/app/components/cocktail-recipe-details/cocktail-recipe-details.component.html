@@ -1,0 +1,61 @@
+<button type="button" class="btn btn-primary" [routerLink]="['']">Back <span class="icon-home"></span></button>
+
+<div class="container display-center">
+  <div class="grid row">
+      <div class="card cocktail-detail-card">
+        <div class="row section dark">
+          <div class="col-sm-6">
+            <div class="card-image">
+              <img src="{{ recipe.imageUrl }}" alt="Cocktail image" />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-content">
+              <div class="row">
+                <div class="col-sm-10">
+                  <a
+                    style="color: black"
+                    [routerLink]="['cocktails', recipe.id]"
+                  >
+                    <h3>{{ recipe.name }}</h3>
+                  </a>
+                </div>
+                <div class="col-sm-2">
+                  <span
+                    class="icon-star"
+                    [attr.id]="'star-' + recipe.id"
+                    [class.active]="isFavorite()"
+                    (click)="toggleFavorite()"
+                  ></span>
+                </div>
+              </div>
+              <div class="input-group fluid">
+                <label for="ing">Ingredients:</label>
+                <ul>
+                  <li
+                    id="ing"
+                    class="badge"
+                    *ngFor="let ing of recipe.ingredients"
+                  >
+                    {{ ing }}
+                  </li>
+                </ul>
+              </div>
+              <div class="input-group fluid">
+                <label for="info">Instruction:</label>
+                <p id="info">{{ recipe.instructions }}</p>
+              </div>
+              <p>
+                <mark
+                  class="{{ recipe.isAlcoholic ? 'primary' : 'tertiary' }}"
+                  >{{
+                    recipe.isAlcoholic ? "Alcoholic" : "Non alcoholic"
+                  }}</mark
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

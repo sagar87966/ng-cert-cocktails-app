@@ -1,0 +1,57 @@
+<header>
+  <h1>Cocktail List</h1>
+</header>
+
+<div class="container">
+  <h3>Filter</h3>
+  <div class="filter input-group fluid">
+    <label for="floatingInput" class="card-text">Cocktail Name</label>
+    <input
+    type="text"
+    [formControl]="searchControl"
+    class="form-control card-text"
+    id="floatingInput"
+    placeholder="Cocktail name"
+  />
+  </div>
+  <div class="grid row">
+    <ng-container *ngFor="let item of recipeList">
+      <div class="card cocktail-card">
+        <div class="row section dark">
+          <div class="col-sm-6">
+            <div class="card-image">
+              <img src="{{ item?.imageUrl }}" alt="Cocktail image" />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-content">
+              <div class="row">
+                <div class="col-sm-10">
+                  <a style="color: black" [routerLink]="['cocktails', item?.id]">
+                    <h3>{{ item?.name }}</h3>
+                  </a>
+                </div>
+                <div class="col-sm-2">
+                  <span
+                    class="icon-star"
+                    [attr.id]="'star-' + item.id"
+                    [class.active]="isFavorite(item.id)"
+                    (click)="toggleFavorite(item.id)"
+                  ></span>
+                </div>
+              </div>
+              <p>
+                <mark class="{{ item.isAlcoholic ? 'primary' : 'tertiary' }}">{{
+                  item.isAlcoholic ? "Alcoholic" : "Non alcoholic"
+                }}</mark>
+              </p>
+              <span class="badge" *ngFor="let ing of item.ingredients">
+                {{ ing }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
